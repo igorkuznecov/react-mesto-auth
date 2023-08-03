@@ -2,13 +2,13 @@ import React from 'react';
 import successImg from '../../images/Success.svg'
 import errorImg from '../../images/Error.svg'
 
-export default function InfoTooltip({ isOpen, success, onClose }) {
+export default function InfoTooltip({ isOpen, result, onClose }) {
 
   const [img, setImg] = React.useState('');
   const [text, setText] = React.useState('');
 
   function statusSwitch() {
-    if (success) {
+    if (result) {
       setImg(successImg)
       setText('Вы успешно зарегистрировались!')
     } else {
@@ -19,9 +19,9 @@ export default function InfoTooltip({ isOpen, success, onClose }) {
 
   React.useEffect(() => {
     statusSwitch()
-  }, [success]);
+  }, [result]);
 
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     function clickClose(evt) {
       if (
         evt.target.classList.contains('popup') &&
@@ -45,7 +45,7 @@ export default function InfoTooltip({ isOpen, success, onClose }) {
         document.removeEventListener('keydown', closeByEsc);
       };
     }
-  }, [isOpen]);
+  }, [isOpen]); */
 
   return (
     <section className={`popup ${isOpen ? 'popup_opened' : ''}`}>

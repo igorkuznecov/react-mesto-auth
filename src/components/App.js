@@ -14,6 +14,7 @@ import Register from './Register/Register';
 import Login from './Login/Login';
 import { checkToken } from '../utils/auth';
 import ProtectedRouteElement from './ProtectedRoute/ProtectedRoute';
+import InfoTooltip from './InfoTooltip/InfoTooltip';
 
 function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
@@ -23,11 +24,14 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
+  const [isInfoPopupOpen, setIsInfoPopupOpen] = React.useState(false);
   const [cards, setCards] = React.useState([]);
   const [userEmail, setUserEmail] = React.useState('');
+  const [infoPopupResult, setInfoPopupResult] = React.useState(true);
   const navigate = useNavigate();
 
   const isSomePopupOpen =
+    isInfoPopupOpen ||
     isEditAvatarPopupOpen ||
     isEditProfilePopupOpen ||
     isAddPlacePopupOpen ||
@@ -60,6 +64,7 @@ function App() {
   }, [isSomePopupOpen]);
 
   function closeAllPopups() {
+    setIsInfoPopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -152,7 +157,7 @@ function App() {
       });
   }
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   function handleLogin() {
     setLoggedIn(true);
@@ -211,15 +216,33 @@ function App() {
             />
           }
         />
-        <Route path='/sign-up' element={<Register />} />
+        <Route
+          path='/sign-up'
+          element={
+            <Register
+              setIsInfoPopupOpen={setIsInfoPopupOpen}
+              setInfoPopupResult={setInfoPopupResult}
+            />
+          }
+        />
         <Route
           path='/sign-in'
           element={
-            <Login handleLogin={handleLogin} setUserEmail={setUserEmail} />
+            <Login
+              handleLogin={handleLogin}
+              setUserEmail={setUserEmail}
+              setIsInfoPopupOpen={setIsInfoPopupOpen}
+              setInfoPopupResult={setInfoPopupResult}
+            />
           }
         />
       </Routes>
       <Footer />
+      <InfoTooltip
+        isOpen={isInfoPopupOpen}
+        result={infoPopupResult}
+        onClose={closeAllPopups}
+      />
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}

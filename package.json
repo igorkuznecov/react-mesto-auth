@@ -11,7 +11,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
-    "homepage": "https://igorkuznecov.github.io/react-auth-mesto/"
+    "homepage": "https://igorkuznecov.github.io/react-mesto-auth/"
   },
   "scripts": {
     "predeploy": "npm run build",
