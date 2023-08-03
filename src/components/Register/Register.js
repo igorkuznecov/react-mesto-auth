@@ -19,10 +19,10 @@ export default function Register({ setIsInfoPopupOpen, setInfoPopupResult }) {
     e.preventDefault();
     register(password, email)
       .then((res) => {
-        console.log(res);
         if (res.data) {
           setInfoPopupResult(true);
           setIsInfoPopupOpen(true);
+          navigate('/sign-in', { replace: true });
         }
       })
       .catch((res) => {

@@ -21,10 +21,10 @@ export default function Login({ handleLogin, setUserEmail }) {
       .then((res) => {
         if (res.token) {
           setUserEmail(email);
-          handleLogin(true);
+          localStorage.setItem('jwt', res.token);
+          handleLogin();
         }
       })
-      .then(() => {})
       .catch((res) => console.log(`catch err ${res}`));
   }
 
